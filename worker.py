@@ -76,5 +76,6 @@ def openai_process_message(user_message):
     print("openai response:", openai_response)
     # Parse the response to get the response message for our prompt
     response_text = openai_response.choices[0].message.content
-    print('response: ', response)
+    response_text = openai_response['choices'][0]['message']['content']
+    print('response: ', response_text)
     return response_text

@@ -33,41 +33,64 @@ def speech_to_text_route():
         status=200,
         mimetype='application/json'
     )
-    print(response)
-    print(response.data)
-    return response
+    if 'results' in response and response['results']:
+        text = response['results'][0]['alternatives'][0]['transcript']
+        print('recognised text: ', text)
+        print(response)
+        print(response.data)
+        return text
+    else:
+        return 'No speech detected'
+
 
 
 @app.route('/process-message', methods=['POST'])
 def process_message_route():
-    user_message = request.json['userMessage'] # Get user's message from their request
-    print('user_message', user_message)
+    try:
+        user_message = request.json['userMessage']  # Get user's message from their request
+        print('user_message', user_message)
 
-    voice = request.json['voice'] # Get user's preferred voice from their request
-    print('voice', voice)
+        voice = request.json.get('voice', '')  # Get user's preferred voice from their request, default to empty string
+        print('voice', voice)
 
-    # Call openai_process_message function to process the user's message and get a response back
-    openai_response_text = openai_process_message(user_message)
+        # Call openai_process_message function to process the user's message and get a response back
+        openai_response_text = openai_process_message(user_message)
 
-    # Clean the response to remove any emptylines
-    openai_response_text = os.linesep.join([s for s in openai_response_text.splitlines() if s])
+        # Clean the response to remove any empty lines
+        openai_response_text = os.linesep.join([s for s in openai_response_text.splitlines() if s])
 
-    # Call our text_to_speech function to convert OpenAI Api's reponse to speech
-    openai_response_speech = text_to_speech(openai_response_text, voice)
+        # Call our text_to_speech function to convert OpenAI API's response to speech
+        openai_response_speech = text_to_speech(openai_response_text, voice)
 
-    # convert openai_response_speech to base64 string so it can be sent back in the JSON response
-    openai_response_speech = base64.b64encode(openai_response_speech).decode('utf-8')
+        # Convert openai_response_speech to base64 string so it can be sent back in the JSON response
+        openai_response_speech = base64.b64encode(openai_response_speech).decode('utf-8')
 
-    # Send a JSON response back to the user containing their message's response both in text and speech formats
-    response = app.response_class(
-        response=json.dumps({"openaiResponseText": openai_response_text, "openaiResponseSpeech": openai_response_speech}),
-        status=200,
-        mimetype='application/json'
-    )
+        # Send a JSON response back to the user containing their message's response both in text and speech formats
+        response = app.response_class(
+            response=json.dumps({"openaiResponseText": openai_response_text, "openaiResponseSpeech": openai_response_speech}),
+            status=200,
+            mimetype='application/json'
+        )
 
-    print(response)
-    return response
+        print(response)
+        return response
 
+    except KeyError as e:
+        error_message = f"Missing expected key in JSON request: {str(e)}"
+        print(error_message)
+        return app.response_class(
+            response=json.dumps({"error": error_message}),
+            status=400,
+            mimetype='application/json'
+        )
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        print(error_message)
+        return app.response_class(
+            response=json.dumps({"error": error_message}),
+            status=500,
+            mimetype='application/json'
+        )
 
 if __name__ == "__main__":
     app.run(port=8000, host='0.0.0.0') # localhost
