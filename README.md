@@ -6,6 +6,11 @@
     - Watosn Speech To Text (STT): Allowsthe  assistant to hear to user's response.
     - Watson Text To Speech (TTS): Allows the assistant to read the answers back to the user.
 
+<img src="https://github.com/MartinezAgullo/GenAI_3_VoiceAssistant/tree/main/tmp/Voice-lightmode.png" alt="css result" width="600"/>
+
+
+
+
 
 ## Composition
 
