@@ -7,7 +7,9 @@
     - Watson Text To Speech (TTS): Allows the assistant to read the answers back to the user.
 
 The app looks like:
-<img src="https://github.com/MartinezAgullo/GenAI_3_VoiceAssistant/tree/main/tmp/Voice-lightmode.png" alt="Voice Assistant" width="600"/>
+![Voice Assistant](https://github.com/MartinezAgullo/GenAI_3_VoiceAssistant/blob/main/tmp/Voice-lightmode.png)
+
+<!-- <img src="https://github.com/MartinezAgullo/GenAI_3_VoiceAssistant/tree/main/tmp/Voice-lightmode.png" alt="Voice Assistant" width="600"/>-->
 
 
 
