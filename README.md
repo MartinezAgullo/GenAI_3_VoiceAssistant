@@ -1,5 +1,5 @@
 # Voice Assistant
- Voice Assistant with Open AI's GPT-3 and IBM Watson embedebale AI. 
+ Voice Assistant with Open AI's GPT-3 and IBM Watson embeddable AI. 
 
   - GPT-3: Enables the assistant to undertand and respond to user input: Using "gpt-3.5-turbo"
   - Watson AI
