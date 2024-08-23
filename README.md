@@ -1,12 +1,10 @@
 # Voice Assistant
  Voice Assistant with Open AI's GPT-3 and IBM Watson embedebale AI. 
 
-  - GPT-3: Enables the assistant to undertand and respond to user input
+  - GPT-3: Enables the assistant to undertand and respond to user input: Using "gpt-3.5-turbo"
   - Watson AI
     - Watosn Speech To Text (STT): Allowsthe  assistant to hear to user's response.
     - Watson Text To Speech (TTS): Allows the assistant to read the answers back to the user.
-
-
 
 
 ## Composition
@@ -19,10 +17,17 @@
 
 ## Ussage
 
-> pip install -r requirements.txt
+<!-- > pip install -r requirements.txt -->
+
+Using the Docker image to simplify the deployement process. I'm doing this on [Skills Network](https://skills.network/) lab.
+> cp /usr/local/share/ca-certificates/rootCA.crt /home/project/chatapp-with-voice-and-openai/certs/
+> docker build . -t voice-chatapp-powered-by-openai
+> docker run -p 8000:8000 voice-chatapp-powered-by-openai
 
 
-Docker integration allows the application to run consistently across various environments.
+Check a of languahes it can recognize and available voices with:
+> curl https://sn-watson-stt.labs.skills.network/speech-to-text/api/v1/models
+> curl https://sn-watson-tts.labs.skills.network/text-to-speech/api/v1/voices
 
 
 ## Credits
